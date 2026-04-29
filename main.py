@@ -1,12 +1,13 @@
 from fastapi import FastAPI
-from routers import blog, cardnews, page, thumbnail
+from routers import blog, page, admin, user, scraper
 
 app = FastAPI()
 
 app.include_router(blog.router)
-app.include_router(cardnews.router)
 app.include_router(page.router)
-app.include_router(thumbnail.router)
+app.include_router(admin.router)
+app.include_router(user.router)
+app.include_router(scraper.router)
 
 @app.get("/")
 def home():
