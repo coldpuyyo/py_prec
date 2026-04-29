@@ -15,12 +15,12 @@ def app_page():
 
         <button onclick="generateBlog()">블로그 글 생성</button>
         <button onclick="saveBlog()">블로그 글 저장</button>
-        <button onclick="generateCard()">카드뉴스 생성</button>
-        <button onclick="generateCardImage()">카드뉴스 이미지 생성</button>
-        <button onclick="generateThumbnailText()">썸네일 문구 생성</button>
-        <button onclick="generateAIThumbnail()">AI 썸네일 생성</button>
+        <!-- <button onclick="generateCard()">카드뉴스 생성</button> -->
+        <!-- <button onclick="generateCardImage()">카드뉴스 이미지 생성</button> -->
+        <!-- <button onclick="generateThumbnailText()">썸네일 문구 생성</button> -->
+        <!-- <button onclick="generateAIThumbnail()">AI 썸네일 생성</button> -->
         <!-- <button onclick="generateThumbnailImage()">썸네일 이미지 합성</button> -->
-        <button onclick="mergeThumbnail()">썸네일 문구 합성</button>
+        <!-- <button onclick="mergeThumbnail()">썸네일 문구 합성</button> -->
 
         <pre id="result"></pre>
         <div id="imageArea"></div>
