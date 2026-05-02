@@ -2,7 +2,41 @@ from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
 import re
 
-def scrape_naver_cafe_list(url: str, limit: int = 20, keyword: str = "투자사기 피해사례"):
+from services.cafe_service import get_cafes_by_category
+
+def scrape_cafes_by_category(category: str, limit_per_cafe: int = 10):
+    cafes = get_cafes_by_category(category)
+
+    all_results = []
+
+    for cafe in cafes:
+        filter_type = cafe.get("filter_type", "keyword")
+
+        if filter_type == "exclude_author":
+            results = scrape_naver_cafe_list(
+                url=cafe["url"],
+                exclude_authors=cafe.get("exclude_authors", []),
+                limit=limit_per_cafe
+            )
+        else:
+            results = scrape_naver_cafe_list(
+                url=cafe["url"],
+                keyword=cafe.get("keyword", ""),
+                limit=limit_per_cafe
+            )
+
+        for item in results:
+            item["cafe_name"] = cafe["name"]
+            item["category"] = cafe["category"]
+
+        all_results.extend(results)
+
+    return all_results
+
+def scrape_naver_cafe_list( url: str, limit: int = 20, keyword: str = "", exclude_authors: list[str] = None):
+    if exclude_authors is None:
+        exclude_authors = []
+
     results = []
 
     with sync_playwright() as p:
@@ -20,45 +54,87 @@ def scrape_naver_cafe_list(url: str, limit: int = 20, keyword: str = "투자사�
             html = page.content()
             soup = BeautifulSoup(html, "html.parser")
 
+            rows = soup.select("tr")
             links = soup.find_all("a")
 
-            for a in links:
-                title = a.get_text(" ", strip=True)
-                href = a.get("href")
+            # 1) 작성자 필터 우선: 게시판 row 기준
+            if exclude_authors:
+                for row in rows:
+                    row_text = row.get_text(" ", strip=True)
 
-                if not title or not href:
-                    continue
+                    if any(author in row_text for author in exclude_authors):
+                        continue
 
-                # 댓글 링크 제거
-                if "commentFocus" in href:
-                    continue
+                    a = row.find("a", href=True)
+                    if not a:
+                        continue
 
-                # 댓글수 텍스트 제거
-                if title.startswith("댓글수"):
-                    continue
+                    title = a.get_text(" ", strip=True)
+                    href = a.get("href")
 
-                # 게시글 링크만
-                if "articles" not in href:
-                    continue
+                    if not title or not href:
+                        continue
 
-                # 원하는 키워드 포함 글만
-                if keyword not in title:
-                    continue
+                    if "commentFocus" in href:
+                        continue
 
-                if href.startswith("/"):
-                    href = "https://cafe.naver.com" + href
+                    if title.startswith("댓글수"):
+                        continue
 
-                # 중복 제거
-                if any(item["url"] == href for item in results):
-                    continue
+                    if "articles" not in href:
+                        continue
 
-                results.append({
-                    "title": title,
-                    "url": href
-                })
+                    if keyword and keyword not in title:
+                        continue
 
-                if len(results) >= limit:
-                    break
+                    if href.startswith("/"):
+                        href = "https://cafe.naver.com" + href
+
+                    if any(item["url"] == href for item in results):
+                        continue
+
+                    results.append({
+                        "title": title,
+                        "url": href
+                    })
+
+                    if len(results) >= limit:
+                        break
+
+            # 2) 키워드 필터
+            else:
+                for a in links:
+                    title = a.get_text(" ", strip=True)
+                    href = a.get("href")
+
+                    if not title or not href:
+                        continue
+
+                    if "commentFocus" in href:
+                        continue
+
+                    if title.startswith("댓글수"):
+                        continue
+
+                    if "articles" not in href:
+                        continue
+
+                    if keyword and keyword not in title:
+                        continue
+
+                    if href.startswith("/"):
+                        href = "https://cafe.naver.com" + href
+
+                    if any(item["url"] == href for item in results):
+                        continue
+
+                    results.append({
+                        "title": title,
+                        "url": href
+                    })
+
+                    if len(results) >= limit:
+                        break
 
         finally:
             browser.close()

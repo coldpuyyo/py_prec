@@ -57,7 +57,7 @@ def user_page():
             document.getElementById("caseList").innerHTML = "피해 사례 수집 중...";
 
             const response = await fetch(
-                "/scrape/naver-cafe?keyword=" + encodeURIComponent(category) + "&limit=15"
+                "/scrape/category?category=" + encodeURIComponent(category) + "&limit=10"
             );
 
             const data = await response.json();
@@ -77,7 +77,7 @@ def user_page():
                 div.style.margin = "8px 0";
                 div.style.cursor = "pointer";
 
-                div.innerText = (index + 1) + ". " + item.title;
+                div.innerText = (index + 1) + ". [" + item.cafe_name + "] " + item.title;
 
                 div.onclick = function() {{
                     document.getElementById("selectedUrl").value = item.url;

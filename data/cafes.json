@@ -1,0 +1,23 @@
+[
+  {
+  "category": "투자",
+  "name": "백두산카페",
+  "url": "https://cafe.naver.com/f-e/cafes/25470135/menus/891?viewType=L",
+  "filter_type": "keyword",
+  "keyword": "투자사기 피해사례"
+  },
+  {
+  "category": "보이스피싱",
+  "name": "보이스피싱카페",
+  "url": "https://cafe.naver.com/f-e/cafes/29460309/menus/26?viewType=L",
+  "filter_type": "exclude_author",
+  "exclude_authors": ["이루리", "동심", "소망"]
+  },
+  {
+  "category": "성범죄",
+  "name": "성범죄카페",
+  "url": "https://cafe.naver.com/f-e/cafes/17962606/menus/127?viewType=L",
+  "filter_type": "exclude_author",
+  "exclude_authors": ["김흥준변호사", "화살표과장"]
+  }
+]
