@@ -8,3 +8,8 @@ dist/
 logs/
 profile
 data/naver_profile.json
+PyPrecApp.spec
+build/
+data/publish_image_pool/
+profiles/
+data/naver_profiles.json
