@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>카페 설정 관리</title>
+  <link rel="stylesheet" href="/static/admin/admin_cafes.css">
+  <script defer src="/static/admin/admin_cafes.js"></script>
+</head>
+<body>
+  <h2>카페 설정 관리
+    <button id="homeBtn" onclick="location.href='/admin'" type="button">관리자 홈</button>
+  </h2>
+
+  <input type="hidden" id="cafeId">
+  <p>카테고리<br><input id="category"></p>
+  <p>카페명<br><input id="name"></p>
+  <p>URL<br><input id="url"></p>
+
+  <p>
+    필터 타입<br>
+    <select id="filter_type">
+      <option value="keyword">키워드</option>
+      <option value="exclude">공지, 필독 제외</option>
+    </select>
+  </p>
+
+  <p id="keywordRow">키워드<br><input id="keyword"></p>
+
+  <p>
+    <label>
+      <input id="member_required" type="checkbox">
+      멤버 가입 필요
+    </label>
+  </p>
+
+  <p id="accountKeyRow">
+    스크랩 계정 키<br>
+    <input id="scraper_profile_key" placeholder="예: naver_scraper_main">
+  </p>
+
+  <button id="saveBtn" type="button">저장</button>
+  <button id="resetBtn" type="button">초기화</button>
+
+  <hr>
+  <table border="1" cellpadding="6">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>카테고리</th>
+        <th>카페명</th>
+        <th>URL</th>
+        <th>필터 타입</th>
+        <th>키워드</th>
+        <th>멤버 가입 필요</th>
+        <th>스크랩 계정 키</th>
+        <th>관리</th>
+      </tr>
+    </thead>
+    <tbody id="rows"></tbody>
+  </table>
+</body>
+</html>

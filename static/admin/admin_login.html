@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>관리자 로그인</title>
+  <link rel="stylesheet" href="/static/admin/admin_login.css">
+  <script defer src="/static/admin/admin_login.js"></script>
+</head>
+<body>
+  <main class="login-wrap">
+    <section class="login-card">
+      <h2>관리자 로그인</h2>
+
+      <div class="form-row">
+        <label for="username">아이디</label>
+        <input id="username" type="text" placeholder="관리자 아이디">
+      </div>
+
+      <div class="form-row">
+        <label for="password">비밀번호</label>
+        <input id="password" type="password" placeholder="비밀번호">
+      </div>
+
+      <div class="btn-row">
+        <button id="loginBtn" type="button" class="btn-primary">로그인</button>
+        <button onclick="location.href='/'" type="button" class="btn-ghost">홈</button>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
