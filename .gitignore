@@ -3,3 +3,10 @@ __pycache__/
 .env
 output/
 *.pyc
+PyPrecApp.spec
+build/
+data/publish_image_pool/
+dist/
+logs/
+profiles/
+data/naver_profiles.json
