@@ -3,3 +3,8 @@ __pycache__/
 .env
 output/
 *.pyc
+.build-venv/
+dist/
+logs/
+profile
+data/naver_profile.json
