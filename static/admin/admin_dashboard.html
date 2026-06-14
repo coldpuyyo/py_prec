@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>관리자 페이지</title>
+  <link rel="stylesheet" href="/static/admin/admin_dashboard.css">
+  <script defer src="/static/admin/admin_dashboard.js"></script>
+</head>
+<body>
+  <h2>관리자 페이지
+      <button id="logoutBtn" type="button">로그아웃</button>
+      <button id="cafesBtn" onclick="location.href='/admin/cafes'" type="button">카페 관리</button>
+  </h2>
+
+  <h3>프롬프트 관리</h3>
+  <div class="prompt-mode-switch">
+    <button id="modeScrapBtn" class="prompt-mode-btn active" type="button" aria-pressed="true">카페 스크랩 모드 프롬프트</button>
+    <button id="modeKeywordBtn" class="prompt-mode-btn" type="button" aria-pressed="false">키워드 모드 프롬프트</button>
+    <button id="modeBlogScrapBtn" class="prompt-mode-btn" type="button" aria-pressed="false">블로그 스크랩 모드 프롬프트</button>
+    <button id="modeTitleBtn" class="prompt-mode-btn" type="button" aria-pressed="false">제목 생성 프롬프트</button>
+  </div>
+  <textarea id="scrapgenaratorprompt" rows="14" cols="100"></textarea>
+  <textarea id="keywordgenaratorprompt" rows="14" cols="100" hidden></textarea>
+  <textarea id="blogscrapgenaratorprompt" rows="14" cols="100" hidden></textarea>
+  <textarea id="titlegenaratorprompt" rows="14" cols="100" hidden></textarea>
+  <br><br>
+  <button id="savescrapgenaratorPromptBtn" type="button">프롬프트 저장</button>
+  <button id="savekeywordgenaratorPromptBtn" type="button" hidden>프롬프트 저장</button>
+  <button id="saveblogscrapgenaratorPromptBtn" type="button" hidden>프롬프트 저장</button>
+  <button id="savetitlegenaratorPromptBtn" type="button" hidden>프롬프트 저장</button>
+
+  <hr>
+
+  <h3>AI API 키 관리</h3>
+  <div>Gemini 상태: <span id="geminiStatus">확인 중..</span></div>
+  <div>GPT(OpenAI) 상태: <span id="openaiStatus">확인 중..</span></div><br>
+
+  <label>Gemini API Key</label><br>
+  <input id="geminiApiKey" type="password" style="width:420px;" placeholder="변경할 때만 입력"><br><br>
+
+  <label>OpenAI API Key</label><br>
+  <input id="openaiApiKey" type="password" style="width:420px;" placeholder="변경할 때만 입력"><br><br>
+
+  <button id="saveApiKeysBtn" type="button">API 키 저장</button>
+
+  <hr>
+  <h3>발행 전 VPN 설정</h3>
+  <p>발행 버튼을 누를 때 ExpressVPN CLI를 먼저 실행한 뒤 블로그 발행을 진행합니다.</p>
+
+  <label>
+    <input id="vpnEnabled" type="checkbox">
+    VPN 자동 실행 사용
+  </label><br><br>
+
+  <label>
+    <input id="vpnRunAsAdmin" type="checkbox" checked>
+    관리자 권한 CMD로 실행 (필수)
+  </label><br><br>
+
+  <label for="vpnCliDir">CLI 경로</label><br>
+  <input id="vpnCliDir" style="width:520px;" value="C:\Program Files (x86)\ExpressVPN\services"><br><br>
+
+  <label>
+    <input id="vpnActivateBeforePublish" type="checkbox" checked>
+    발행 전 activate 실행
+  </label><br><br>
+
+  <label for="vpnActivationCode">Activation Code (입력 시 갱신) ※Activation Code가 저장된 txt 파일 경로</label><br>
+  <input id="vpnActivationCode" type="password" style="width:420px;" placeholder="C:\경로\Activation Code가 저장된 txt 파일(예: login.txt)"><br>
+  <small id="vpnActivationCodeStatus"></small><br><br>
+
+  <label for="vpnConnectLocation">connect 대상</label><br>
+  <input id="vpnConnectLocation" style="width:220px;" value="smart"><br><br>
+
+  <label for="vpnCommandTimeoutSec">명령 타임아웃(초)</label><br>
+  <input id="vpnCommandTimeoutSec" type="number" style="width:120px;" value="120"><br><br>
+
+  <label for="vpnSettleWaitSec">연결 후 대기(초)</label><br>
+  <input id="vpnSettleWaitSec" type="number" style="width:120px;" value="3"><br><br>
+
+  <button id="saveVpnConfigBtn" type="button">VPN 설정 저장</button>
+
+  <pre id="vpnStatus" style="white-space:pre-wrap;"></pre>
+</body>
+</html>

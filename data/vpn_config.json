@@ -1,0 +1,10 @@
+{
+  "enabled": false,
+  "run_as_admin": false,
+  "cli_dir": "C:\\Program Files\\ExpressVPN\\",
+  "activation_code": "c:\\temp\\login.txt",
+  "activate_before_publish": false,
+  "connect_location": "smart",
+  "command_timeout_sec": 120,
+  "settle_wait_sec": 3
+}

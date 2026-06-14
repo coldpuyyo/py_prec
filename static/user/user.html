@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>블로그 글 생성</title>
+  <link rel="stylesheet" href="/static/user/user.css">
+  <script defer src="/static/user/user.js"></script>
+</head>
+<body>
+  <h2>블로그 글 생성
+    <span class="header-actions">
+      <button onclick="location.href='/user/profile'" type="button">네이버 프로필 관리</button>
+      <button onclick="location.href='/'" type="button">홈</button>
+    </span>
+  </h2> 
+
+  <div class="mode-switch">
+    <button id="modeScrapeBtn" class="mode-btn active" type="button" aria-pressed="true">카페 스크래핑 모드</button>
+    <button id="modeKeywordBtn" class="mode-btn" type="button" aria-pressed="false">키워드 모드</button>
+    <button id="modeBlogScrapeBtn" class="mode-btn" type="button" aria-pressed="false">블로그 스크래핑 모드</button>
+  </div>
+
+  <div id="scrapeModeArea">
+    <label for="category">카테고리:</label>
+    <select id="category"></select>
+  </div>
+
+  <label for="provider">AI API:</label>
+  <select id="provider">
+    <option value="gemini">Gemini</option>
+    <option value="gpt">GPT</option>
+  </select>
+
+  <label for="model">모델:</label>
+  <select id="model"></select>
+  <br><br>
+
+  <div id="scrapeModeArea2">
+    <button id="scrapeBtn" type="button">피해 사례 수집</button>
+
+    <h3>수집된 피해 사례</h3>
+    <div id="caseList"></div>
+    <input type="hidden" id="selectedUrl">
+  </div>
+
+  <hr>
+
+  <div id="keywordModeArea" hidden>
+    <label for="keywordInput">키워드</label>
+    <input id="keywordInput" placeholder="예: 보이스피싱, 전세사기">
+  </div>
+
+  <div id="blogScrapeModeArea" hidden>
+    <label for="blogUrlInput">블로그 URL</label>
+    <input id="blogUrlInput" placeholder="예: https://blog.naver.com/...">
+  </div>
+
+  <label for="subInput">상세 요청:</label><br>
+  <textarea id="subInput" rows="5" cols="80"></textarea>
+  <br><br>
+
+  <label for="subTitle">부제목:</label><br>
+  <input id="subTitle" style="width:400px;">
+  <br><br>
+
+  <label for="length">글자수:</label><br>
+  <input id="length" value="1200">
+  <br><br>
+
+  <button id="scrapgenerateBtn" type="button">글 생성</button>
+  <button id="keywordgenerateBtn" type="button" hidden>글 생성</button>
+  <button id="blogScrapgenerateBtn" type="button" hidden>글 생성</button>
+
+  <h3>미리보기</h3>
+  <textarea id="result"></textarea>
+
+  <hr>
+
+  <h3>네이버 블로그 업로드
+    <button id="titlegenaratorprompt_settingBtn" type="button">제목 생성 프롬프트 설정</button>
+  </h3>
+  <textarea id="titlegenaratorprompt_setting" rows="14" cols="100" hidden></textarea>
+  <br id="titlebr" hidden><br id="titlebr" hidden>
+  <button id="savetitlegenaratorPrompt_settingBtn" type="button" hidden>프롬프트 저장</button>
+  <wrapper id="publishSettingsWrapper">
+    <label for="subInput2">제목 상세 요청:</label>
+    <textarea id="subInput2" rows="3" cols="80"></textarea>
+    <br>
+    <label for="publishTitle">발행 제목:</label><br>
+    <input id="publishTitle" style="width:620px;" placeholder="예: 보이스피싱 피해사례 대응 방법">
+    <button id="generateTitleBtn" type="button">제목 생성</button><br><br>
+
+    <label for="publisherProfileKey">발행 계정 키(publisher):</label><br>
+    <select id="publisherProfileKey" style="width:320px;"></select><br><br>
+
+    <label for="publishBlogId">블로그 ID:</label><br>
+    <input id="publishBlogId" style="width:320px;" placeholder="예: abcefg"><br><br>
+
+    <div class="publish-style-grid">
+      <div class="field">
+        <label for="subtitleFontSize">소제목 글씨 크기</label>
+        <select id="subtitleFontSize">
+          <option value="11">11</option>
+          <option value="13">13</option>
+          <option value="15">15</option>
+          <option value="16">16</option>
+          <option value="19">19</option>
+          <option value="24" selected>24</option>
+          <option value="28">28</option>
+          <option value="30">30</option>
+          <option value="34">34</option>
+          <option value="38">38</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="subtitleQuoteStyle">소제목 인용구</label>
+        <select id="subtitleQuoteStyle">
+          <option value="1" selected>따옴표</option>
+          <option value="2">버티컬 라인</option>
+          <option value="3">말풍선</option>
+          <option value="4">라인&따옴표</option>
+          <option value="5">포스트잇</option>
+          <option value="6">프레임</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="bodyFontSize">본문 글씨 크기</label>
+        <select id="bodyFontSize">
+          <option value="11">11</option>
+          <option value="13">13</option>
+          <option value="15" selected>15</option>
+          <option value="16">16</option>
+          <option value="19">19</option>
+          <option value="24">24</option>
+          <option value="28">28</option>
+          <option value="30">30</option>
+          <option value="34">34</option>
+          <option value="38">38</option>
+        </select>
+      </div>
+    </div>
+    <br>
+
+    <div class="form-grid-2">
+      <div class="field">
+        <label for="typingDelayMin">타이핑 최소 지연(ms)</label>
+        <input id="typingDelayMin" type="number" min="0" max="500" value="30" style="width:120px;">
+      </div>
+      <div class="field">
+        <label for="typingDelayMax">타이핑 최대 지연(ms)</label>
+        <input id="typingDelayMax" type="number" min="0" max="500" value="85" style="width:120px;">
+      </div>
+    </div>
+    <br>
+
+    <label>
+      <input id="publishUseRandomImage" type="checkbox">
+      이미지 자동 삽입 (data/publish_image_pool에서 랜덤 1장 변형 후 업로드)
+    </label><br>
+
+    <div id="randomImageOptionBox" hidden>
+      <div class="form-grid-2">
+        <div class="field">
+          <label for="middleImageCount">소제목 하단 이미지 개수</label>
+          <input id="middleImageCount" type="number" min="0" max="10" value="1" style="width:120px;">
+        </div>
+        <div class="field">
+          <label for="bottomImageCount">최하단 이미지 개수</label>
+          <input id="bottomImageCount" type="number" min="0" max="10" value="1" style="width:120px;">
+        </div>
+        <div class="field full-width">
+          <label for="bottomImageLink">하이퍼 이미지 링크1</label>
+          <input id="bottomImageLink" type="text" inputmode="url" placeholder="예: https://example.com">
+        </div>
+        <div class="field full-width">
+          <label for="bottomFirstImageLink">하이퍼 이미지 링크2</label>
+          <input id="bottomFirstImageLink" type="text" inputmode="url" placeholder="예: https://example.com">
+        </div>
+      </div>
+    </div>
+
+    <label for="conclusionParagraphCount">결론 문단 개수</label>
+    <input id="conclusionParagraphCount" type="number" min="0" max="10" value="1" style="width:120px;"><br><br>
+
+    <label>
+      <input id="publishUseSchedule" type="checkbox">
+      예약발행 사용
+    </label><br>
+
+    <div id="scheduleOptionBox" hidden>
+      <div class="field">
+        <label for="publishScheduledAt">예약발행 시간</label>
+        <input id="publishScheduledAt" type="datetime-local" step="600">
+      </div>
+    </div>
+    <br>
+
+    <button id="publishBtn" type="button">블로그 발행</button><br><br>
+    <div id="publishStatus" style="margin-top:10px; white-space:pre-wrap;"></div>
+  </wrapper>
+
+  <div id="apiKeyModal">
+    <div id="apiKeyModalBox">
+      <h3>AI API 키 설정</h3>
+      <p>프로그램 실행을 위해 누락된 키만 입력해 주세요.</p>
+
+      <div id="geminiRow" class="key-row">
+        <label for="geminiApiKey">Gemini API Key</label><br>
+        <input id="geminiApiKey" type="password" placeholder="Gemini API Key 입력">
+      </div>
+
+      <div id="openaiRow" class="key-row">
+        <label for="openaiApiKey">OpenAI API Key</label><br>
+        <input id="openaiApiKey" type="password" placeholder="OpenAI API Key 입력">
+      </div>
+
+      <div class="key-help">이미 .env에 저장된 키는 다시 입력하지 않아도 됩니다.</div>
+      <br>
+      <button id="saveApiKeysBtn" type="button">저장</button>
+    </div>
+  </div>
+</body>
+</html>

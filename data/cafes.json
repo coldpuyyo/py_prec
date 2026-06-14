@@ -1,23 +1,88 @@
 [
   {
-  "category": "투자",
-  "name": "백두산카페",
-  "url": "https://cafe.naver.com/f-e/cafes/25470135/menus/891?viewType=L",
-  "filter_type": "keyword",
-  "keyword": "투자사기 피해사례"
+    "category": "투자사기",
+    "name": "백두산카페",
+    "url": "https://cafe.naver.com/f-e/cafes/25470135/menus/891?viewType=L",
+    "filter_type": "keyword",
+    "keyword": "투자사기 피해사례",
+    "id": "3231754698e6",
+    "member_required": false,
+    "naver_account_key": "",
+    "scraper_profile_key": ""
   },
   {
-  "category": "보이스피싱",
-  "name": "보이스피싱카페",
-  "url": "https://cafe.naver.com/f-e/cafes/29460309/menus/26?viewType=L",
-  "filter_type": "exclude_author",
-  "exclude_authors": ["이루리", "동심", "소망"]
+    "category": "보이스피싱",
+    "name": "보이스피싱 피해 카페",
+    "url": "https://cafe.naver.com/f-e/cafes/29460309/menus/26?viewType=L",
+    "filter_type": "exclude",
+    "exclude": [
+      "공지",
+      "필독"
+    ],
+    "id": "fe82ca8ce6fc",
+    "keyword": "",
+    "member_required": false,
+    "naver_account_key": "",
+    "scraper_profile_key": ""
   },
   {
-  "category": "성범죄",
-  "name": "성범죄카페",
-  "url": "https://cafe.naver.com/f-e/cafes/17962606/menus/127?viewType=L",
-  "filter_type": "exclude_author",
-  "exclude_authors": ["김흥준변호사", "화살표과장"]
+    "category": "성범죄",
+    "name": "성공카페",
+    "url": "https://cafe.naver.com/f-e/cafes/17962606/menus/127?viewType=L",
+    "filter_type": "exclude",
+    "exclude": [
+      "공지",
+      "필독"
+    ],
+    "id": "c31de1db1d09",
+    "member_required": false,
+    "naver_account_key": "",
+    "scraper_profile_key": "",
+    "keyword": ""
+  },
+  {
+    "category": "로맨스스캠",
+    "name": "몸피모카페",
+    "url": "https://cafe.naver.com/f-e/cafes/25016965/menus/22?viewType=L",
+    "filter_type": "exclude",
+    "exclude": [
+      "공지",
+      "필독"
+    ],
+    "id": "abaf3587b5ea",
+    "member_required": false,
+    "naver_account_key": "",
+    "scraper_profile_key": "",
+    "keyword": ""
+  },
+  {
+    "id": "df850ec75cc2",
+    "category": "성",
+    "name": "왜나였을까",
+    "url": "https://cafe.naver.com/f-e/cafes/19434584/menus/30?viewType=L",
+    "filter_type": "exclude",
+    "member_required": true,
+    "naver_account_key": "naver_scraper_main",
+    "exclude": [
+      "공지",
+      "필독"
+    ],
+    "scraper_profile_key": "naver_scraper_main",
+    "keyword": ""
+  },
+  {
+    "id": "213645db9ce9",
+    "category": "성범죄2",
+    "name": "성전카페",
+    "url": "https://cafe.naver.com/f-e/cafes/21374233/menus/379?viewType=L",
+    "filter_type": "exclude",
+    "member_required": false,
+    "naver_account_key": "",
+    "exclude": [
+      "공지",
+      "필독"
+    ],
+    "scraper_profile_key": "",
+    "keyword": ""
   }
 ]

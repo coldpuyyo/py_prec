@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>네이버 프로필 관리</title>
+  <link rel="stylesheet" href="/static/user/user_profile.css">
+  <script defer src="/static/user/user_profile.js"></script>
+</head>
+<body>
+  <h2>네이버 프로필 관리
+    <button onclick="location.href='/user'" type="button">뒤로가기</button>
+  </h2>
+
+  <h3>프로필 관리 (네이버 로그인 시 필요한 프로필 키 생성)</h3>
+  <p>네이버 프로필 레지스트리 관리에서 생성한 계정 키를 프로필 키로 등록합니다</p>
+
+  <label>프로필 역할</label><br>
+  <select id="profileRole" style="width:220px;">
+    <option value="scraper">스크래퍼 (카페 관리)</option>
+    <option value="publisher">게시판 (글쓰기/게시)</option>
+  </select><br><br>
+
+  <label>프로필 키</label><br>
+  <input id="profileKey" style="width:320px;" placeholder="예: 계정 키: naver_main = 프로필 키: naver_main"><br><br>
+
+  <button id="startProfileBtn" type="button">프로필 시작</button>
+  <button id="checkProfileBtn" type="button">상태 확인</button>
+  <button id="finishProfileBtn" type="button">프로필 완료</button>
+  <button id="cancelProfileBtn" type="button">프로필 취소</button>
+
+  <pre id="profileStatus" style="white-space:pre-wrap;"></pre>
+
+  <hr>
+  <h3>네이버 프로필 레지스트리 관리</h3>
+  <p>카페/발행 설정에서 사용할 계정 키를 역할별로 등록합니다.</p>
+
+  <label>계정 키</label><br>
+  <input id="registryAccountKey" style="width:320px;" placeholder="예: naver_scraper_main"><br><br>
+
+  <label>역할</label><br>
+  <select id="registryRole" style="width:220px;">
+    <option value="scraper">scraper</option>
+    <option value="publisher">publisher</option>
+  </select><br><br>
+
+  <label>라벨(선택, 관리자가 구분하기 위한 용도)</label><br>
+  <input id="registryLabel" style="width:320px;" placeholder="label"><br><br>
+
+  <label>블로그 ID(발행용 필수, 본문 수집용 프로필은 필요없음)</label><br>
+  <input id="registryBlogId" style="width:320px;" placeholder="abcdefg"><br><br>
+
+  <label>네이버 로그인 ID(필수, 로그인용)</label><br>
+  <input id="registryLoginId" style="width:320px;" placeholder="naver_id"><br><br>
+
+  <label>네이버 로그인 PW(필수, 로그인용)</label><br>
+  <input id="registryLoginPassword" type="password" style="width:320px;" placeholder="naver_password"><br><br>
+
+  <label>
+    <input id="registryActive" type="checkbox" checked>
+    활성화
+  </label><br><br>
+
+  <button id="saveRegistryBtn" type="button">레지스트리 저장</button>
+  <button id="loadRegistryBtn" type="button">레지스트리 불러오기</button>
+
+  <table border="1" cellpadding="6" style="margin-top:12px;">
+    <thead>
+      <tr>
+        <th>계정 키</th>
+        <th>역할</th>
+        <th>라벨</th>
+        <th>블로그 ID</th>
+        <th>네이버 로그인 ID</th>
+        <th>네이버 로그인 PW</th>
+        <th>활성화</th>
+        <th>작업</th>
+      </tr>
+    </thead>
+    <tbody id="registryRows"></tbody>
+  </table>
+</body>
+</html>
