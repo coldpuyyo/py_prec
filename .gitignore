@@ -3,13 +3,6 @@ __pycache__/
 .env
 output/
 *.pyc
-<<<<<<< HEAD
-PyPrecApp.spec
-build/
-data/publish_image_pool/
-dist/
-logs/
-=======
 .build-venv/
 dist/
 logs/
@@ -18,6 +11,5 @@ data/naver_profile.json
 PyPrecApp.spec
 build/
 data/publish_image_pool/
->>>>>>> my_pc
 profiles/
 data/naver_profiles.json
